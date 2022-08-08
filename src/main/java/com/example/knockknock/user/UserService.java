@@ -17,15 +17,18 @@ public class UserService {
         return _userRepository.countByNickname(nickName) > 0;
     }
 
-    void signUp (User user) {
+    User signUp (User user) {
         _userRepository.save(user);
+        return user;
     }
 
     boolean signIn (String email, String password) {
         return _userRepository.existsByEmailAndPassword(email, password);
     }
 
-    void resetPassword (User user) {
+    User resetPassword (User user) {
         _userRepository.updateUser(user.getEmail(),user.getName(),user.getPhoneNumber(),user.getPassword(),user.getNickname(),user.getBirth(),user.getSex(),user.getJob(), user.getId());
+
+        return user;
     }
 }
