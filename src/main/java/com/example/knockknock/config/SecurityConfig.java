@@ -11,6 +11,7 @@ import org.springframework.web.cors.CorsUtils;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    // permission
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
