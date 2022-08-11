@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface AgeVORepository extends JpaRepository<AgeVO, Integer> {
+public interface AgeRepository extends JpaRepository<AgeVO, Integer> {
     List<AgeVO> findByMatchingId(int matchingId);
 
     @Transactional
