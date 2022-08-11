@@ -3,6 +3,8 @@ package com.example.knockknock.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -17,18 +19,20 @@ public class UserService {
         return _userRepository.countByNickname(nickName) > 0;
     }
 
-    User signUp (User user) {
-        _userRepository.save(user);
-        return user;
+    UserVO signUp (UserVO userVO) {
+        _userRepository.save(userVO);
+        return userVO;
     }
 
-    boolean signIn (String email, String password) {
-        return _userRepository.existsByEmailAndPassword(email, password);
+    UserVO signIn (String email) {
+        Optional<UserVO> user = _userRepository.findByEmail(email);
+        if (user.isPresent()){
+            return user.get();
+        } else return null;
     }
 
-    User resetPassword (User user) {
-        _userRepository.updateUser(user.getEmail(),user.getName(),user.getPhoneNumber(),user.getPassword(),user.getNickname(),user.getBirth(),user.getSex(),user.getJob(), user.getId());
-
-        return user;
+    UserVO resetPassword (String email, String newPassword) {
+        _userRepository.updatePassword(newPassword, email);
+        return _userRepository.findByEmail(email).get();
     }
 }

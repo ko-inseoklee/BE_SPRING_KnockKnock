@@ -25,26 +25,32 @@ public class UserController {
     }
 
     @GetMapping("/check-nickname")
-    public ResponseEntity<Boolean> checkNicknameDuplication (@RequestParam String nickName) {
-        return new ResponseEntity<Boolean>(_userService.checkNicknameDuplication(nickName), HttpStatus.FOUND);
+    public ResponseEntity<Boolean> checkNicknameDuplication (@RequestParam String nickname) {
+        return new ResponseEntity<Boolean>(_userService.checkNicknameDuplication(nickname), HttpStatus.FOUND);
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<User> signUp (@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return new ResponseEntity<User>(_userService.signUp(user),HttpStatus.CREATED);
+    public ResponseEntity<UserVO> signUp (@RequestBody UserVO userVO) {
+        userVO.setPassword(passwordEncoder.encode(userVO.getPassword()));
+        return new ResponseEntity<UserVO>(_userService.signUp(userVO),HttpStatus.CREATED);
 
     }
 
     @GetMapping("/sign-in")
     public ResponseEntity<Boolean> signIn (@RequestParam String email,@RequestParam String password) {
-        password = passwordEncoder.encode(password);
-        return new ResponseEntity<Boolean>(_userService.signIn(email, password),HttpStatus.OK);
+        UserVO currentUserVO = _userService.signIn(email);
+        if (currentUserVO == null) return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+        else {
+            boolean result = passwordEncoder.matches(password, currentUserVO.getPassword());
+            if (result) return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+            else return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+        }
     }
 
-    @GetMapping("/reset-password")
-    public ResponseEntity<User> resetPassword (User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return new ResponseEntity<User>(_userService.resetPassword(user), HttpStatus.OK);
+    @PostMapping("/reset-password")
+    public ResponseEntity<UserVO> resetPassword (@RequestParam String email, @RequestParam String newPassword) {
+        newPassword = passwordEncoder.encode(newPassword);
+        System.out.println(newPassword);
+        return new ResponseEntity<UserVO>(_userService.resetPassword(email, newPassword),HttpStatus.OK);
     }
 }
