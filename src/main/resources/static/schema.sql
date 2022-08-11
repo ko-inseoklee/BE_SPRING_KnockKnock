@@ -7,7 +7,7 @@ create table user (
     nickname varchar(15),
     birth int,
     sex varchar(5),
-    job varchar(15)
+    job varchar(15),
 );
 
 create table matching_age (
