@@ -25,11 +25,11 @@ public class MatchingController {
     public String createMatchingRoom(@RequestBody MatchingDTO dto){
         try{
             matchingService.createMatchingRoom(dto);
-            return "/success";
+            return "/Success";
         } catch (Exception e){
             log.info(e.getMessage());
 
-            return "/fail";
+            return "/Fail";
         }
     }
 
