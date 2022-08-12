@@ -34,8 +34,8 @@ public class MatchingController {
     }
 
     //매칭방 수정
-    public void updateMatchingRoomInfo(@RequestBody MatchingDTO dto){
-        matchingService.updateMatchingRoomInfo(dto);
+    void updateMatchingRoomInfo(){
+
     }
 
     //매칭방 목록 불러오기

@@ -1,8 +1,6 @@
 package com.example.knockknock.matching;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,8 +9,6 @@ import java.util.Date;
 @Entity
 @Table(name = "matching")
 @Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class MatchingVO {//RE
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +30,4 @@ public class MatchingVO {//RE
     @Column(name = "created_time", nullable = false)
     private Date createdTime;
 
-    public MatchingVO(Integer id, String title, String topic) {
-        this.id = id;
-        this.title = title;
-        this.topic = topic;
-    }
 }

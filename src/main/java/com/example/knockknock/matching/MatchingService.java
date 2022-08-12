@@ -23,7 +23,7 @@ public class MatchingService {
     //RE
     //매칭방 생성
     boolean createMatchingRoom(MatchingDTO dto){
-        MatchingVO matching = new MatchingVO(dto.getId(),dto.getTitle(),dto.getTopic(),dto.getCreatorId(),dto.getParticipantId(),dto.getCreatedTime());
+        MatchingVO matching = new MatchingVO();
         List<AgeVO> ages = dto.getAgeRequirements();
         try{
             matchingRepository.save(matching);
@@ -36,27 +36,13 @@ public class MatchingService {
     }
 
     //매칭방 수정
-    void updateMatchingRoomInfo(MatchingDTO dto){
-        List<AgeVO> ages = dto.getAgeRequirements();
-        try{
-            matchingRepository.updateMatchingRoomInfo(dto.getTitle(), dto.getTopic(), dto.getId());
-            for(int i = 0; i < ages.size(); i++){
-                ageVORepository.updateAge(ages.get(i).getAge(),ages.get(i).getId());
-            }
-        } catch (Exception e) {
-            log.info(e.getMessage());
-        }
+    void updateMatchingRoomInfo(){
+
     }
 
     //매칭방 삭제
-    boolean deleteMatchingRoom(Integer id){
-        try{
-            matchingRepository.deleteById(id);
-            return true;
-        } catch (Exception e){
-            log.info(e.getMessage());
-            return false;
-        }
+    void deleteMatchingRoom(){
+
     }
 
     //매칭방 입장
