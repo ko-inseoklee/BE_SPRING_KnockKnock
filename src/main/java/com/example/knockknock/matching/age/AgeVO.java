@@ -20,7 +20,7 @@ public class AgeVO {
 
     @Column(name = "requirement_age")
     private int age;
-
+//re
 
 
 }

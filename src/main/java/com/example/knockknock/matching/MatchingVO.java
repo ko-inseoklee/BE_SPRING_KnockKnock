@@ -29,5 +29,5 @@ public class MatchingVO {//RE
 
     @Column(name = "created_time", nullable = false)
     private Date createdTime;
-
+//re
 }
