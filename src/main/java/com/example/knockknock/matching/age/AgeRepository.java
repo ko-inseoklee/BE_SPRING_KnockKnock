@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface AgeRepository extends JpaRepository<AgeVO, Integer> {
+
     List<AgeVO> findByMatchingId(int matchingId);
 
     @Transactional
@@ -17,6 +18,9 @@ public interface AgeRepository extends JpaRepository<AgeVO, Integer> {
     @Query("delete from AgeVO a where a.matchingId = ?1")
     void deleteByMatchingId(int matchingId);
 
-
+    @Transactional
+    @Modifying
+    @Query("update AgeVO a set a.age = ?1 where a.id = ?2")
+    int updateAge(int age, int id);
 
 }

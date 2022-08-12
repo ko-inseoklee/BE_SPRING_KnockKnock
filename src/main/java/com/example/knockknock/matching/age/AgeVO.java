@@ -1,6 +1,8 @@
 package com.example.knockknock.matching.age;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import javax.persistence.*;
 @Table(name = "matching_age")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AgeVO {
     @Id
     @Column(name = "age_id", nullable = false)
