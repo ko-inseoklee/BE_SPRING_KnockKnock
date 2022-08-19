@@ -23,7 +23,8 @@ public class MatchingService {
     //RE
     //매칭방 생성
     boolean createMatchingRoom(MatchingDTO dto){
-        MatchingVO matching = new MatchingVO();
+        MatchingVO matching = new MatchingVO(dto.getTitle(),dto.getTopic(),dto.getCreatorId(),DateTime.now(
+        ));
         List<AgeVO> ages = dto.getAgeRequirements();
         try{
             matchingRepository.save(matching);

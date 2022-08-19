@@ -22,14 +22,11 @@ public class MatchingController {
 
     //매칭방 생성
     @PostMapping("/create")
-    public String createMatchingRoom(@RequestBody MatchingDTO dto){
+    public void createMatchingRoom(@RequestBody MatchingDTO dto){
         try{
             matchingService.createMatchingRoom(dto);
-            return "/success";
         } catch (Exception e){
             log.info(e.getMessage());
-
-            return "/Fail";
         }
     }
 

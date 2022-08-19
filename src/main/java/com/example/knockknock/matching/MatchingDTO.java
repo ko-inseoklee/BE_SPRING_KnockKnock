@@ -10,12 +10,10 @@ import java.util.List;
 @Getter
 @Setter
 public class MatchingDTO {
-    private Integer id;
     private String title;
     private String topic;
     private int creatorId;
     private int participantId;
-    private Date createdTime;
-    private List<AgeVO> ageRequirements;
+    private List<Integer> ageRequirements;
     //RE
 }
