@@ -25,6 +25,7 @@ public class MatchingController {
     public void createMatchingRoom(@RequestBody MatchingDTO dto){
         try{
             matchingService.createMatchingRoom(dto);
+            log.info(dto.getAgeRequirements().toString());
         } catch (Exception e){
             log.info(e.getMessage());
         }

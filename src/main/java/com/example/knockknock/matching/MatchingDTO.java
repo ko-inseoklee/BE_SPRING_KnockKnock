@@ -14,6 +14,6 @@ public class MatchingDTO {
     private String topic;
     private int creatorId;
     private int participantId;
-    private List<Integer> ageRequirements;
+    private int[] ageRequirements;
     //RE
 }

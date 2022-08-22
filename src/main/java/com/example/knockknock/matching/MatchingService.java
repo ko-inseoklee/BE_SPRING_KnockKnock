@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,12 +25,15 @@ public class MatchingService {
     //RE
     //매칭방 생성
     boolean createMatchingRoom(MatchingDTO dto){
-        MatchingVO matching = new MatchingVO(dto.getTitle(),dto.getTopic(),dto.getCreatorId(),DateTime.now(
-        ));
-        List<AgeVO> ages = dto.getAgeRequirements();
+        MatchingVO matching = new MatchingVO(dto.getTitle(),dto.getTopic(),dto.getCreatorId(), LocalDateTime.now());
+        int[] ages = dto.getAgeRequirements();
+        ArrayList<AgeVO> ageVOList = new ArrayList<>();
+        for(int i = 0; i < ages.length; i++){
+            ageVOList.add(new AgeVO(ages[i]));
+        }
         try{
             matchingRepository.save(matching);
-            ageVORepository.saveAll(ages);
+            ageVORepository.saveAll(ageVOList);
             return true;
         } catch (RuntimeException e) {
             log.info(e.getMessage());
