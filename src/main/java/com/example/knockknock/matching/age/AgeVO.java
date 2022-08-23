@@ -23,7 +23,8 @@ public class AgeVO {
     @Column(name = "requirement_age")
     private int age;
 
-    public AgeVO(Integer age) {
+    public AgeVO(int matchingId,Integer age) {
+        this.matchingId = matchingId;
         this.age = age;
     }
 //re

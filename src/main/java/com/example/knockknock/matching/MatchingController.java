@@ -2,13 +2,12 @@ package com.example.knockknock.matching;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/matching")
 @Slf4j
 public class MatchingController {
@@ -22,12 +21,13 @@ public class MatchingController {
 
     //매칭방 생성
     @PostMapping("/create")
-    public void createMatchingRoom(@RequestBody MatchingDTO dto){
+    public ResponseEntity<MatchingDTO> createMatchingRoom(@RequestBody MatchingDTO dto){
         try{
-            matchingService.createMatchingRoom(dto);
-            log.info(dto.getAgeRequirements().toString());
+            MatchingDTO result = matchingService.createMatchingRoom(dto);
+            return new ResponseEntity<MatchingDTO>(result, HttpStatus.CREATED);
         } catch (Exception e){
             log.info(e.getMessage());
+            return new ResponseEntity<MatchingDTO>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -42,29 +42,42 @@ public class MatchingController {
     }
 
     //매칭방 삭제
-    void deleteMatchingRoom(){
-
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteMatchingRoom(@RequestParam int id){
+        boolean response = matchingService.deleteMatchingRoom(id);
+        HttpStatus statusCode;
+        if (response)
+            statusCode = HttpStatus.ACCEPTED;
+        else
+            statusCode = HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<Boolean>(response,statusCode);
     }
 
     //매칭방 입장
-    void enterMatchingRoom(){
-
+    @PostMapping("/join")
+    public ResponseEntity<MatchingDTO> enterMatchingRoom(@RequestParam int participantId,@RequestParam int matchingId){
+        MatchingDTO result = matchingService.enterMatchingRoom(matchingId, participantId);
+        if (result == null) return new ResponseEntity<MatchingDTO>(HttpStatus.BAD_REQUEST);
+        else return new ResponseEntity<MatchingDTO>(result, HttpStatus.OK);
     }
 
     //매칭방 퇴장
-    void exitMatchingRoom(){
+    @PostMapping("/exit")
+    public ResponseEntity<Boolean> exitMatchingRoom(@RequestParam int participantId, @RequestParam int matchingId){
+        boolean response = matchingService.exitMatchingRoom(matchingId);
+        HttpStatus statusCode;
+        if (response)
+            statusCode = HttpStatus.ACCEPTED;
+        else
+            statusCode = HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<Boolean>(response,statusCode);
 
     }
 
-    @GetMapping("/success")
-    public String onSuccess(){
-        return "success";
-    }
+    //TODO: 매칭방 추방
 
-    @GetMapping("/fail")
-    public String onFail(){
-        return "fail";
-    }
+    //매칭방 검색
+    void searchMatchingRoom(){
 
-    //re
+    }
 }

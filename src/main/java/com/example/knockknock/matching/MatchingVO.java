@@ -1,17 +1,17 @@
 package com.example.knockknock.matching;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@Builder
 @Entity
 @Table(name = "matching")
 @Getter @Setter
-@NoArgsConstructor
+@AllArgsConstructor
 public class MatchingVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +27,16 @@ public class MatchingVO {
     @Column(name = "creator", nullable = false)
     private int creatorId;
 
-    @Column(name = "participant", nullable = false)
+    @Column(name = "participant")
+    @ColumnDefault("0")
     private int participantId;
 
     @Column(name = "created_time", nullable = false)
     private Date createdTime;
 
-    public MatchingVO(String title, String topic, int creatorId, LocalDateTime createdTime) {
+    public MatchingVO() {
 
     }
-//re
+
+    //re
 }

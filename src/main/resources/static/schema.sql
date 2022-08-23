@@ -7,7 +7,7 @@ create table user (
     nickname varchar(15),
     birth int,
     sex varchar(5),
-    job varchar(15),
+    job varchar(15)
 );
 
 create table matching_age (
@@ -19,10 +19,13 @@ create table matching_age (
 
 
 create table matching (
-    id int primary key ,
+    id int primary key auto_increment,
     title varchar(20),
     topic varchar(10),
     creator int,
     participant int,
     created_time DATE
 )
+
+ALTER TABLE knockknock.matching MODIFY COLUMN id int(11) auto_increment NOT NULL;
+ALTER TABLE knockknock.matching_age MODIFY COLUMN age_id int(11) auto_increment NOT NULL;
