@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -110,6 +112,30 @@ public class MatchingService {
             return false;
         }
     }
+    public List<MatchingDTO> loadAllMatchings(){
+        List<MatchingVO> matchingVOList = matchingRepository.findAll();
+        List<MatchingDTO> result = new ArrayList<MatchingDTO>();
 
-    //re
+        matchingVOList.forEach((matching) -> {
+            List<AgeVO> ages = ageVORepository.findByMatchingId(matching.getId());
+
+            MatchingDTO matchingDTO = new MatchingDTO();
+            matchingDTO.setId(matching.getId());
+            matchingDTO.setTitle(matching.getTitle());
+            matchingDTO.setTopic(matching.getTopic());
+            matchingDTO.setCreatorId(matching.getCreatorId());
+            matchingDTO.setParticipantId(matching.getParticipantId());
+
+            int[] resultAges = new int[ages.size()];
+            for(int i = 0; i < ages.size(); i++){
+                resultAges[i] = ages.get(i).getAge();
+            }
+            matchingDTO.setAgeRequirements(resultAges);
+
+            result.add(matchingDTO);
+            }
+        );
+
+        return result;
+    }
 }

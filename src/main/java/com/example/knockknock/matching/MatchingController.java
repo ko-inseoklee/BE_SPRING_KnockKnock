@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/matching")
 @Slf4j
@@ -31,14 +33,17 @@ public class MatchingController {
         }
     }
 
-    //매칭방 수정
+    //매칭방 수정 TODO: 아직 디자인이 안 나옴.
     void updateMatchingRoomInfo(){
 
     }
 
     //매칭방 목록 불러오기
-    void getMatchingRoomList() {
+    @GetMapping("/list")
+    public ResponseEntity<List<MatchingDTO>> getMatchingRoomList() {
+        List<MatchingDTO> allList = matchingService.loadAllMatchings();
 
+        return new ResponseEntity<List<MatchingDTO>>(allList,HttpStatus.OK);
     }
 
     //매칭방 삭제
@@ -76,7 +81,7 @@ public class MatchingController {
 
     //TODO: 매칭방 추방
 
-    //매칭방 검색
+    //매칭방 검색 TODO: 아직 디자인이 안 나옴.
     void searchMatchingRoom(){
 
     }

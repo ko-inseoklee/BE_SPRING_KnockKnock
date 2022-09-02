@@ -16,7 +16,4 @@ public interface AgeRepository extends JpaRepository<AgeVO, Integer> {
     @Modifying
     @Query("delete from AgeVO a where a.matchingId = ?1")
     void deleteByMatchingId(int matchingId);
-
-
-//re
 }

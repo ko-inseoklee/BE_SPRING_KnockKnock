@@ -29,3 +29,12 @@ create table matching (
 
 ALTER TABLE knockknock.matching MODIFY COLUMN id int(11) auto_increment NOT NULL;
 ALTER TABLE knockknock.matching_age MODIFY COLUMN age_id int(11) auto_increment NOT NULL;
+
+
+
+create table phone_auth (
+    id int primary key auto_increment,
+                            phone_number varchar(20)   not null,
+                            auth_code         varchar(10)   not null,
+                            sending_time timestamp not null
+);
